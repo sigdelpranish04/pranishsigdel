@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="NOIR & CO. Hair Studio — a premium concept salon website by Pranish Sigdel.">
+<title>NOIR & CO. — Project Demo | Pranish Sigdel</title>
+
+<style>
+    :root{
+        --ink:#171513;
+        --muted:#6f6962;
+        --cream:#f5f0e9;
+        --paper:#fbf9f5;
+        --line:#ddd5cc;
+        --accent:#b68b5b;
+        --dark:#211d19;
+        --white:#fff;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+        font-family:Arial, Helvetica, sans-serif;
+        background:var(--paper);
+        color:var(--ink);
+        line-height:1.6;
+    }
+    img{display:block;width:100%;height:100%;object-fit:cover}
+    a{color:inherit}
+    .container{width:min(1160px,92%);margin:auto}
+    .eyebrow{
+        font-size:12px;font-weight:800;letter-spacing:2.5px;
+        text-transform:uppercase;color:var(--accent);margin-bottom:18px
+    }
+    .section{padding:105px 0;border-top:1px solid var(--line)}
+    .section-head{max-width:700px;margin-bottom:48px}
+    .section-title{
+        font-family:Georgia,serif;font-size:clamp(42px,6vw,72px);
+        line-height:1.02;letter-spacing:-2px;margin-bottom:20px
+    }
+    .section-text{color:var(--muted);font-size:18px;max-width:650px}
+    .button{
+        display:inline-block;text-decoration:none;border:1px solid var(--ink);
+        padding:14px 22px;font-weight:800;font-size:14px;
+        transition:.2s ease
+    }
+    .button:hover{transform:translateY(-3px)}
+    .button.dark{background:var(--ink);color:var(--white)}
+    .button.light{background:transparent}
+    .button.gold{background:var(--accent);color:white;border-color:var(--accent)}
+
+    /* NAV */
+    header{
+        position:sticky;top:0;z-index:1000;background:rgba(251,249,245,.94);
+        backdrop-filter:blur(12px);border-bottom:1px solid var(--line)
+    }
+    nav{min-height:78px;display:flex;align-items:center;justify-content:space-between;gap:25px}
+    .logo{font-family:Georgia,serif;font-size:23px;font-weight:bold;letter-spacing:1px}
+    .logo small{font-family:Arial,sans-serif;font-size:9px;letter-spacing:3px;display:block;color:var(--muted);font-weight:700}
+    .nav-links{display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+    .nav-links a{text-decoration:none;font-size:13px;font-weight:800}
+    .nav-links a:hover{text-decoration:underline}
+
+    /* HERO */
+    .hero{min-height:calc(100vh - 78px);display:grid;grid-template-columns:1.02fr .98fr}
+    .hero-copy{display:flex;align-items:center;padding:80px 8% 80px 0}
+    .hero h1{
+        font-family:Georgia,serif;font-size:clamp(60px,8vw,105px);
+        line-height:.9;letter-spacing:-5px;margin-bottom:30px
+    }
+    .hero h1 span{display:block;color:var(--accent);font-style:italic}
+    .hero-sub{font-size:20px;color:var(--muted);max-width:600px;margin-bottom:35px}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+    .hero-photo{min-height:680px;position:relative}
+    .hero-photo img{filter:saturate(.8)}
+    .hero-badge{
+        position:absolute;left:-40px;bottom:45px;background:var(--ink);color:white;
+        padding:22px 26px;max-width:230px
+    }
+    .hero-badge strong{display:block;font-family:Georgia,serif;font-size:25px;margin-bottom:4px}
+    .hero-badge span{font-size:12px;color:#d7d0c8}
+
+    /* STRIP */
+    .strip{background:var(--ink);color:white;padding:20px 0;overflow:hidden}
+    .strip-inner{display:flex;justify-content:space-between;gap:25px;flex-wrap:wrap;font-size:11px;letter-spacing:2px;font-weight:800;text-transform:uppercase}
+    .strip span{color:#cfc5bb}
+
+    /* ABOUT */
+    .about-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:70px;align-items:start}
+    .about-image{height:520px}
+    .about-copy{padding-top:20px}
+    .about-copy h3{font-family:Georgia,serif;font-size:30px;margin-bottom:18px}
+    .about-copy p{color:var(--muted);margin-bottom:22px}
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:35px}
+    .stat{border-top:1px solid var(--line);padding-top:14px}
+    .stat strong{font-family:Georgia,serif;font-size:30px;display:block}
+    .stat span{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+
+    /* SERVICES */
+    .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .service-card{
+        background:white;border:1px solid var(--line);padding:30px;
+        min-height:260px;transition:.25s ease
+    }
+    .service-card:hover{transform:translateY(-5px);box-shadow:0 15px 35px rgba(23,21,19,.07)}
+    .service-number{font-size:12px;color:var(--accent);font-weight:800;margin-bottom:45px}
+    .service-card h3{font-family:Georgia,serif;font-size:27px;margin-bottom:10px}
+    .service-card p{color:var(--muted);font-size:14px}
+    .service-card .from{display:block;margin-top:20px;font-size:12px;font-weight:800;letter-spacing:1px}
+
+    /* MENU */
+    .menu-wrap{display:grid;grid-template-columns:1fr 1fr;gap:60px}
+    .menu-column h3{font-family:Georgia,serif;font-size:32px;margin-bottom:20px}
+    .menu-item{
+        display:grid;grid-template-columns:1fr auto;gap:15px;
+        padding:18px 0;border-bottom:1px solid var(--line)
+    }
+    .menu-item h4{font-size:16px;margin-bottom:3px}
+    .menu-item p{font-size:13px;color:var(--muted)}
+    .price{font-weight:800;white-space:nowrap}
+
+    /* PACKAGES */
+    .packages{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .package{
+        padding:34px;background:var(--cream);border:1px solid var(--line)
+    }
+    .package.featured{background:var(--ink);color:white}
+    .package-label{font-size:11px;font-weight:800;letter-spacing:2px;color:var(--accent);text-transform:uppercase}
+    .package h3{font-family:Georgia,serif;font-size:31px;margin:16px 0 8px}
+    .package-price{font-size:28px;font-weight:800;margin-bottom:18px}
+    .package ul{list-style:none}
+    .package li{padding:9px 0;border-bottom:1px solid rgba(128,120,110,.25);font-size:14px}
+    .package li::before{content:"✓";margin-right:9px;color:var(--accent)}
+    .package .button{margin-top:25px}
+
+    /* GALLERY */
+    .gallery{
+        display:grid;grid-template-columns:1.2fr .8fr .8fr;
+        grid-template-rows:270px 270px;gap:14px
+    }
+    .gallery-item{overflow:hidden;background:#ddd}
+    .gallery-item:first-child{grid-row:span 2}
+    .gallery-item:nth-child(4){grid-column:2 / span 2}
+    .gallery-item img{transition:.45s ease}
+    .gallery-item:hover img{transform:scale(1.04)}
+
+    /* TEAM */
+    .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .team-card{background:white;border:1px solid var(--line)}
+    .team-photo{height:350px}
+    .team-info{padding:22px}
+    .team-info h3{font-family:Georgia,serif;font-size:25px}
+    .team-info p{color:var(--muted);font-size:13px}
+
+    /* TESTIMONIALS */
+    .reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .review{padding:30px;background:var(--cream);border:1px solid var(--line)}
+    .stars{letter-spacing:3px;color:var(--accent);margin-bottom:18px}
+    .review p{font-family:Georgia,serif;font-size:21px;line-height:1.4;margin-bottom:22px}
+    .review span{font-size:12px;color:var(--muted);font-weight:800}
+
+    /* BOOKING */
+    .booking{display:grid;grid-template-columns:.8fr 1.2fr;gap:70px}
+    .booking-info h2{font-family:Georgia,serif;font-size:55px;line-height:1;margin-bottom:20px}
+    .booking-info p{color:var(--muted);margin-bottom:25px}
+    .contact-list{list-style:none}
+    .contact-list li{padding:11px 0;border-bottom:1px solid var(--line);font-size:14px}
+    .booking-form{background:white;padding:35px;border:1px solid var(--line)}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+    label{display:block;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:7px}
+    input,select,textarea{
+        width:100%;padding:14px;border:1px solid var(--line);background:#faf8f4;
+        font:inherit;outline:none
+    }
+    input:focus,select:focus,textarea:focus{border-color:var(--ink)}
+    .field{margin-bottom:16px}
+    textarea{min-height:120px;resize:vertical}
+    .form-full{grid-column:1/-1}
+    .booking-form button{cursor:pointer;width:100%;border:0;margin-top:4px}
+
+    /* FAQ */
+    .faq{max-width:850px}
+    details{border-top:1px solid var(--line);padding:22px 0}
+    details:last-child{border-bottom:1px solid var(--line)}
+    summary{cursor:pointer;font-family:Georgia,serif;font-size:22px}
+    details p{color:var(--muted);padding-top:13px;max-width:700px}
+
+    /* FOOTER */
+    footer{background:var(--ink);color:white;padding:65px 0 25px}
+    .footer-grid{display:grid;grid-template-columns:1.3fr .7fr .7fr;gap:50px;padding-bottom:50px}
+    footer h3{font-family:Georgia,serif;font-size:32px;margin-bottom:12px}
+    footer p,footer a{color:#c9c1b8;font-size:14px}
+    footer a{text-decoration:none;display:block;margin:7px 0}
+    .copyright{border-top:1px solid #403b36;padding-top:20px;color:#8e877f;font-size:12px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+
+    @media(max-width:900px){
+        .hero{grid-template-columns:1fr}
+        .hero-copy{padding:80px 0}
+        .hero-photo{min-height:560px}
+        .hero-badge{left:20px}
+        .about-grid,.booking{grid-template-columns:1fr;gap:40px}
+        .services-grid,.packages,.team-grid,.reviews{grid-template-columns:1fr 1fr}
+        .menu-wrap{grid-template-columns:1fr}
+        .footer-grid{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:620px){
+        .section{padding:75px 0}
+        .nav-links{gap:12px}
+        .nav-links a{font-size:11px}
+        .hero h1{font-size:62px;letter-spacing:-3px}
+        .hero-photo{min-height:440px}
+        .services-grid,.packages,.team-grid,.reviews,.stats{grid-template-columns:1fr}
+        .gallery{grid-template-columns:1fr 1fr;grid-template-rows:220px 220px 220px}
+        .gallery-item:first-child{grid-row:span 2}
+        .gallery-item:nth-child(4){grid-column:1 / span 2}
+        .form-grid{grid-template-columns:1fr}
+        .form-full{grid-column:auto}
+        .footer-grid{grid-template-columns:1fr}
+        .strip-inner{justify-content:flex-start}
+    }
+/* === MATTE NOIR THEME === */
+:root{--ink:#22211f!important;--muted:#5f5e5a!important;--cream:#c9c8c4!important;--paper:#d7d6d2!important;--line:#aaa9a5!important;--accent:#9a7953!important;--dark:#252421!important;--white:#f1f0ed!important}
+body{background:#d2d1cd!important;color:var(--ink)!important}
+header{background:rgba(210,209,205,.94)!important;border-color:#aaa9a5!important}
+.section{background:transparent!important;border-color:var(--line)!important}.section:nth-of-type(even){background:rgba(241,240,237,.24)!important}
+.service-card,.team-card,.booking-form{background:#e0dfdb!important;border-color:var(--line)!important}.package{background:#c5c4c0!important;border-color:var(--line)!important}.package.featured{background:#252421!important}
+.review{background:#c5c4c0!important;border-color:var(--line)!important}.booking-form input,.booking-form select,.booking-form textarea{background:#ecebe8!important;border-color:#aaa9a5!important}.gallery-item{background:#bdbcb8!important}
+footer{background:#252421!important}.portfolio-return a{background:#252421!important}.portfolio-return a.whatsapp{background:#d7ff64!important;color:#10130d!important}
+
+</style>
+
+<style>
+.portfolio-return{position:fixed;left:18px;bottom:18px;z-index:9999;display:flex;gap:8px;align-items:center;flex-wrap:wrap}.portfolio-return a{display:inline-flex;align-items:center;gap:7px;padding:10px 14px;border-radius:999px;background:#171513;color:#fff!important;text-decoration:none!important;font:700 12px Arial,sans-serif;box-shadow:0 10px 30px rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.16)}.portfolio-return a.whatsapp{background:#d7ff64;color:#10130d!important;border-color:#d7ff64}.portfolio-return a:hover{transform:translateY(-2px)}</style>
+</head>
+
+<body><div class="portfolio-return"><a href="../index.html">← Pranish Portfolio</a><a class="whatsapp" href="https://wa.me/9779748277301?text=Hi%20Pranish%2C%20I%20saw%20your%20portfolio%20project." target="_blank" rel="noopener">WhatsApp ↗</a></div>
+
+<header>
+    <div class="container">
+        <nav>
+            <a class="logo" href="#top" style="text-decoration:none">
+                NOIR & CO.
+                <small>HAIR STUDIO + BARBER</small>
+            </a>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#menu">Price Menu</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#team">Team</a>
+                <a href="#book">Book</a>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<main id="top">
+
+<section class="hero">
+    <div class="container hero-copy">
+        <div>
+            <p class="eyebrow">KATHMANDU • HAIR • GROOMING • BEAUTY</p>
+            <h1>Cut.<span>Style.</span>Own it.</h1>
+            <p class="hero-sub">
+                A modern concept salon for sharp cuts, effortless styling, colour,
+                grooming and a little time for yourself.
+            </p>
+            <div class="hero-actions">
+                <a href="#book" class="button dark">Book an Appointment</a>
+                <a href="#menu" class="button light">Explore Prices</a>
+            </div>
+        </div>
+    </div>
+    <div class="hero-photo">
+        <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1200&q=85" alt="Modern hair salon interior">
+        <div class="hero-badge">
+            <strong>Walk-ins welcome.</strong>
+            <span>Appointments recommended for colour, treatments and bridal services.</span>
+        </div>
+    </div>
+</section>
+
+<div class="strip">
+    <div class="container strip-inner">
+        <span>Haircuts</span><span>•</span><span>Colour</span><span>•</span><span>Beard & Grooming</span><span>•</span><span>Facials</span><span>•</span><span>Hair Treatments</span><span>•</span><span>Bridal</span>
+    </div>
+</div>
+
+<section class="section" id="about">
+    <div class="container about-grid">
+        <div class="about-image">
+            <img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=1000&q=85" alt="Hair stylist working in a salon">
+        </div>
+        <div class="about-copy">
+            <p class="eyebrow">01 • THE STUDIO</p>
+            <h2 class="section-title">Good hair starts with good attention.</h2>
+            <h3>A salon built around the details.</h3>
+            <p>
+                NOIR & CO. is a fictional premium salon concept designed for a modern
+                Kathmandu audience. The studio combines haircuts, barbering, colour,
+                treatments, styling, skin care and event-ready grooming under one roof.
+            </p>
+            <p>
+                Every appointment begins with a quick consultation so the stylist
+                understands your hair, routine and the look you actually want.
+            </p>
+            <div class="stats">
+                <div class="stat"><strong>7+</strong><span>Core services</span></div>
+                <div class="stat"><strong>6</strong><span>Specialists</span></div>
+                <div class="stat"><strong>10AM</strong><span>Opening time</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="services">
+    <div class="container">
+        <div class="section-head">
+            <p class="eyebrow">02 • WHAT WE DO</p>
+            <h2 class="section-title">Everything for your hair & grooming routine.</h2>
+            <p class="section-text">From a five-minute clean-up to a complete transformation, choose a service or build your own appointment.</p>
+        </div>
+
+        <div class="services-grid">
+            <article class="service-card">
+                <div class="service-number">01 / HAIR</div>
+                <h3>Cut & Style</h3>
+                <p>Classic cuts, fades, layers, trims, blow-dry styling and personalised shape consultation.</p>
+                <span class="from">FROM NPR 500</span>
+            </article>
+            <article class="service-card">
+                <div class="service-number">02 / COLOUR</div>
+                <h3>Colour Studio</h3>
+                <p>Global colour, highlights, balayage, root touch-ups and creative colour consultations.</p>
+                <span class="from">FROM NPR 1,800</span>
+            </article>
+            <article class="service-card">
+                <div class="service-number">03 / BARBER</div>
+                <h3>Barbering</h3>
+                <p>Fades, beard shaping, hot towel grooming, line-ups and clean professional finishes.</p>
+                <span class="from">FROM NPR 350</span>
+            </article>
+            <article class="service-card">
+                <div class="service-number">04 / CARE</div>
+                <h3>Hair Treatments</h3>
+                <p>Deep conditioning, smoothening care, repair rituals and scalp-focused treatments.</p>
+                <span class="from">FROM NPR 1,200</span>
+            </article>
+            <article class="service-card">
+                <div class="service-number">05 / BEAUTY</div>
+                <h3>Skin & Beauty</h3>
+                <p>Express facials, cleanup, threading, waxing and simple event-ready beauty services.</p>
+                <span class="from">FROM NPR 400</span>
+            </article>
+            <article class="service-card">
+                <div class="service-number">06 / EVENTS</div>
+                <h3>Bridal & Events</h3>
+                <p>Bridal hair, party styling, makeup coordination and complete pre-event grooming.</p>
+                <span class="from">FROM NPR 4,500</span>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="menu">
+    <div class="container">
+        <div class="section-head">
+            <p class="eyebrow">03 • PRICE MENU</p>
+            <h2 class="section-title">A clear menu. No guessing.</h2>
+            <p class="section-text">Concept pricing in Nepalese rupees. Final prices can vary by hair length, product use and service complexity.</p>
+        </div>
+
+        <div class="menu-wrap">
+            <div class="menu-column">
+                <h3>Hair & Styling</h3>
+                <div class="menu-item"><div><h4>Classic Haircut</h4><p>Wash, cut & basic finish</p></div><span class="price">NPR 600</span></div>
+                <div class="menu-item"><div><h4>Fade / Skin Fade</h4><p>Precision fade & styling</p></div><span class="price">NPR 700</span></div>
+                <div class="menu-item"><div><h4>Haircut + Wash</h4><p>Cut, shampoo & finish</p></div><span class="price">NPR 850</span></div>
+                <div class="menu-item"><div><h4>Blow Dry / Styling</h4><p>Event-ready styling</p></div><span class="price">NPR 900+</span></div>
+                <div class="menu-item"><div><h4>Hair Spa</h4><p>Deep nourishment & scalp massage</p></div><span class="price">NPR 1,500</span></div>
+                <div class="menu-item"><div><h4>Keratin / Smoothening</h4><p>Consultation required</p></div><span class="price">NPR 4,500+</span></div>
+            </div>
+
+            <div class="menu-column">
+                <h3>Barber & Beauty</h3>
+                <div class="menu-item"><div><h4>Beard Trim</h4><p>Shape, trim & finish</p></div><span class="price">NPR 350</span></div>
+                <div class="menu-item"><div><h4>Hair + Beard</h4><p>Cut, beard shape & styling</p></div><span class="price">NPR 950</span></div>
+                <div class="menu-item"><div><h4>Hot Towel Shave</h4><p>Classic barber service</p></div><span class="price">NPR 650</span></div>
+                <div class="menu-item"><div><h4>Express Facial</h4><p>Cleansing & hydration</p></div><span class="price">NPR 700</span></div>
+                <div class="menu-item"><div><h4>Threading</h4><p>Brows / face areas</p></div><span class="price">NPR 250+</span></div>
+                <div class="menu-item"><div><h4>Party Styling</h4><p>Hair styling for events</p></div><span class="price">NPR 1,800+</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="section-head">
+            <p class="eyebrow">04 • SIGNATURE PACKAGES</p>
+            <h2 class="section-title">Make it a full appointment.</h2>
+        </div>
+        <div class="packages">
+            <article class="package">
+                <span class="package-label">Quick Reset</span>
+                <h3>Fresh Cut</h3>
+                <div class="package-price">NPR 850</div>
+                <ul><li>Consultation</li><li>Haircut</li><li>Wash</li><li>Basic styling</li></ul>
+                <a href="#book" class="button">Book package</a>
+            </article>
+            <article class="package featured">
+                <span class="package-label">Most Requested</span>
+                <h3>Complete Groom</h3>
+                <div class="package-price">NPR 1,650</div>
+                <ul><li>Haircut + wash</li><li>Beard shaping</li><li>Hot towel</li><li>Express facial</li></ul>
+                <a href="#book" class="button gold">Book package</a>
+            </article>
+            <article class="package">
+                <span class="package-label">Event Ready</span>
+                <h3>Party Prep</h3>
+                <div class="package-price">NPR 3,500+</div>
+                <ul><li>Hair consultation</li><li>Hair styling</li><li>Facial / cleanup</li><li>Finishing touch-up</li></ul>
+                <a href="#book" class="button">Book package</a>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="gallery">
+    <div class="container">
+        <div class="section-head">
+            <p class="eyebrow">05 • THE SPACE</p>
+            <h2 class="section-title">A look inside NOIR & CO.</h2>
+        </div>
+        <div class="gallery">
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1000&q=85" alt="Salon styling area"></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=900&q=85" alt="Hair styling tools and salon"></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=900&q=85" alt="Barber chair and grooming"></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1600948836101-f9ffda59d250?auto=format&fit=crop&w=1200&q=85" alt="Modern salon interior"></div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="team">
+    <div class="container">
+        <div class="section-head">
+            <p class="eyebrow">06 • THE TEAM</p>
+            <h2 class="section-title">People who care about the finish.</h2>
+        </div>
+        <div class="team-grid">
+            <article class="team-card">
+                <div class="team-photo"><img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&q=85" alt="Concept salon stylist"></div>
+                <div class="team-info"><h3>Arjun</h3><p>Senior Barber • Fades & Men's Grooming</p></div>
+            </article>
+            <article class="team-card">
+                <div class="team-photo"><img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=85" alt="Concept salon stylist"></div>
+                <div class="team-info"><h3>Maya</h3><p>Hair Stylist • Colour & Styling</p></div>
+            </article>
+            <article class="team-card">
+                <div class="team-photo"><img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=800&q=85" alt="Concept salon stylist"></div>
+                <div class="team-info"><h3>Riya</h3><p>Beauty Specialist • Skin & Event Prep</p></div>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="section-head">
+            <p class="eyebrow">07 • CLIENT NOTES</p>
+            <h2 class="section-title">The kind of experience we're building.</h2>
+        </div>
+        <div class="reviews">
+            <article class="review"><div class="stars">★★★★★</div><p>“The consultation made the difference. I finally got a cut that works with my everyday routine.”</p><span>— Concept client review</span></article>
+            <article class="review"><div class="stars">★★★★★</div><p>“Clean space, relaxed atmosphere and a really precise fade. Exactly the experience I wanted.”</p><span>— Concept client review</span></article>
+            <article class="review"><div class="stars">★★★★★</div><p>“The colour consultation was clear from the beginning and the final result felt natural.”</p><span>— Concept client review</span></article>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="book">
+    <div class="container booking">
+        <div class="booking-info">
+            <p class="eyebrow">08 • BOOK</p>
+            <h2>Let's plan your next look.</h2>
+            <p>Choose a service, tell us what you're looking for and we'll confirm your appointment.</p>
+            <ul class="contact-list">
+                <li><strong>Location:</strong> Kathmandu, Nepal</li>
+                <li><strong>Hours:</strong> Sunday–Friday, 10:00 AM–8:00 PM</li>
+                <li><strong>Phone:</strong> +977 9800000000</li>
+                <li><strong>Instagram:</strong> @noirandco.concept</li>
+            </ul>
+        </div>
+
+        <form class="booking-form" onsubmit="event.preventDefault(); alert('Thanks! This is a demo booking form. Connect it to a real form service when the website is deployed.');">
+            <div class="form-grid">
+                <div class="field">
+                    <label for="name">Your name</label>
+                    <input id="name" type="text" placeholder="Pranish Sigdel" required>
+                </div>
+                <div class="field">
+                    <label for="phone">Phone</label>
+                    <input id="phone" type="tel" placeholder="+977 98XXXXXXXX" required>
+                </div>
+                <div class="field">
+                    <label for="service">Service</label>
+                    <select id="service" required>
+                        <option value="">Choose a service</option>
+                        <option>Classic Haircut</option>
+                        <option>Fade / Skin Fade</option>
+                        <option>Hair + Beard</option>
+                        <option>Colour</option>
+                        <option>Hair Treatment</option>
+                        <option>Facial / Beauty</option>
+                        <option>Bridal / Event</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="date">Preferred date</label>
+                    <input id="date" type="date" required>
+                </div>
+                <div class="field form-full">
+                    <label for="message">Anything we should know?</label>
+                    <textarea id="message" placeholder="Tell us about your current hair, the look you're after, or anything else..."></textarea>
+                </div>
+                <div class="field form-full">
+                    <button class="button dark" type="submit">Request Appointment</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="section-head">
+            <p class="eyebrow">09 • FAQ</p>
+            <h2 class="section-title">Before you visit.</h2>
+        </div>
+        <div class="faq">
+            <details open>
+                <summary>Do I need an appointment?</summary>
+                <p>Walk-ins are welcome for selected services, but appointments are recommended for colour, treatments, bridal work and longer styling sessions.</p>
+            </details>
+            <details>
+                <summary>Can you recommend a haircut?</summary>
+                <p>Yes. A short consultation can cover your face shape, hair texture, maintenance routine and the style you want before the cut begins.</p>
+            </details>
+            <details>
+                <summary>Do colour services require a consultation?</summary>
+                <p>For major colour changes, highlights and corrective colour, a consultation is recommended so the stylist can assess your current hair and plan the service.</p>
+            </details>
+            <details>
+                <summary>Are the prices final?</summary>
+                <p>The prices shown are concept prices for this portfolio project. A real salon would confirm the final price based on hair length, product use and service complexity.</p>
+            </details>
+        </div>
+    </div>
+</section>
+
+</main>
+
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div>
+                <h3>NOIR & CO.</h3>
+                <p>Hair Studio + Barber — a fictional salon concept website created by Pranish Sigdel for portfolio demonstration.</p>
+            </div>
+            <div>
+                <p class="eyebrow">Explore</p>
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#menu">Price Menu</a>
+                <a href="#gallery">Gallery</a>
+            </div>
+            <div>
+                <p class="eyebrow">Visit</p>
+                <a href="#book">Book an appointment</a>
+                <a href="tel:+9779800000000">+977 9800000000</a>
+                <a href="#book">Kathmandu, Nepal</a>
+            </div>
+        </div>
+        <div class="copyright">
+            <span>© 2026 NOIR & CO. Concept website.</span>
+            <span>Portfolio project by Pranish Sigdel.</span>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
